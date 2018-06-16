@@ -1,0 +1,42 @@
+{
+  "name": "kube-admin",
+  "version": "1.0.0",
+  "description": "Kube admin",
+  "main": "app.js",
+  "scripts": {
+    "start": "electron app.js",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "com.dung95.kubeadmin",
+    "productName": "Kube Admin",
+    "directories": {
+      "output": "final"
+    },
+    "mac": {
+      "category": "public.app-category.developer-tools",
+      "target": "dmg",
+      "icon": "build/icon.icns"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "build/icon.ico"
+    },
+    "linux": {
+      "target": "deb",
+      "category": "Development"
+    }
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "ejs": "^2.6.1",
+    "express": "^4.16.3"
+  },
+  "devDependencies": {
+    "electron": "^2.0.2",
+    "electron-builder": "^20.15.1"
+  }
+}
