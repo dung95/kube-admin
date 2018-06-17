@@ -1,0 +1,56 @@
+<div class="app-title">
+        <div>
+            <h1>
+                <i class="fa fa-dashboard"></i> Namespaces</h1>
+            <p>See all namespaces of cluster</p>
+        </div>
+        <ul class="app-breadcrumb breadcrumb">
+            <li class="breadcrumb-item">
+                <i class="fa fa-home fa-lg"></i>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="/">Namespaces</a>
+            </li>
+        </ul>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tile">
+                <div class="tile-body">
+                    <div class="title">Namespaces</div>
+                    <table class="table table-hover table-bordered" id="tableNamespaces">
+                        <thead>
+                          <tr>
+                            <th>Name</th>
+                            <th>Labels</th>
+                            <th>Status</th>
+                            <th>Age</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <% for(let i = 0; i < data.length; i++) { %>
+                            <tr>
+                                <td>
+                                    <% if(data[i].status === 'Active') {%>
+                                        <i class="fa fa-check kube-success" aria-hidden="true"></i><a href="<%= data[i].link %>"><%= data[i].name %></a>
+                                    <%} else { %> 
+                                        <i class="fa fa-times kube-false" aria-hidden="true"></i><a href="<%= data[i].link %>"><%= data.namespaces[i].name %></a>
+                                    <% } %>
+                                </td>
+                                <td>
+                                    <% for (const key in data[i].labels) {
+                                        if (data[i].labels.hasOwnProperty(key)) { %>
+                                            <div><span class="badge badge-secondary kube-label"><%= key %> : <%= data[i].labels[key] %></span></div>
+                                        <% }
+                                    } %>
+                                </td>
+                                <td><%= data[i].status %></td>
+                                <td><%= data[i].age %></td>
+                            </tr>
+                          <% } %>
+                        </tbody>
+                      </table>
+                </div>
+            </div>
+        </div>
+    </div>

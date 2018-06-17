@@ -1,0 +1,27 @@
+.kube-success {
+    background: green;
+    color: #ffffff;
+    padding: 4px;
+    margin-right: 15px;
+}
+
+.kube-false {
+    background: red;
+    color: #ffffff;
+    padding: 4px;
+    margin-right: 15px;
+}
+
+.kube-label {
+    padding: 6px;
+    border-radius: 8px;
+}
+
+.title {
+    padding: 0 0 10px 0;
+    font-size: 23px;
+}
+
+.kube-box {
+    margin: 20px 0;
+}

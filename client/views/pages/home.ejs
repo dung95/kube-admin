@@ -2,7 +2,7 @@
     <div>
         <h1>
             <i class="fa fa-dashboard"></i> Dashboard</h1>
-        <p>Start a beautiful journey here</p>
+        <p>See general information of cluster</p>
     </div>
     <ul class="app-breadcrumb breadcrumb">
         <li class="breadcrumb-item">
@@ -16,7 +16,128 @@
 <div class="row">
     <div class="col-md-12">
         <div class="tile">
-            <div class="tile-body">Create a beautiful dashboard</div>
+            <div class="tile-body">
+                <div class="title">Namespaces</div>
+                <table class="table table-hover table-bordered" id="tableNamespaces">
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Labels</th>
+                        <th>Status</th>
+                        <th>Age</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% for(let i = 0; i < data.namespaces.length; i++) { %>
+                        <tr>
+                            <td>
+                                <% if(data.namespaces[i].status === 'Active') {%>
+                                    <i class="fa fa-check kube-success" aria-hidden="true"></i><a href="<%= data.namespaces[i].link %>"><%= data.namespaces[i].name %></a>
+                                <%} else { %> 
+                                    <i class="fa fa-times kube-false" aria-hidden="true"></i><a href="<%= data.namespaces[i].link %>"><%= data.namespaces[i].name %></a>
+                                <% } %>
+                            </td>
+                            <td>
+                                <% for (const key in data.namespaces[i].labels) {
+                                    if (data.namespaces[i].labels.hasOwnProperty(key)) { %>
+                                        <div><span class="badge badge-secondary kube-label"><%= key %> : <%= data.namespaces[i].labels[key] %></span></div>
+                                    <% }
+                                } %>
+                            </td>
+                            <td><%= data.namespaces[i].status %></td>
+                            <td><%= data.namespaces[i].age %></td>
+                        </tr>
+                      <% } %>
+                    </tbody>
+                  </table>
+            </div>
         </div>
     </div>
+
+
+    <div class="col-md-12">
+            <div class="tile">
+                <div class="tile-body">
+                    <div class="title">Nodes</div>
+                    <table class="table table-hover table-bordered" id="tableNodes">
+                        <thead>
+                          <tr>
+                            <th>Name</th>
+                            <th>Labels</th>
+                            <th>Ready</th>
+                            <th>Age</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <% for(let i = 0; i < data.nodes.length; i++) { %>
+                            <tr>
+                                <td>
+                                    <% if(data.nodes[i].ready === 'True') {%>
+                                        <i class="fa fa-check kube-success" aria-hidden="true"></i><a href="<%= data.nodes[i].link %>"><%= data.nodes[i].name %></a>
+                                    <%} else { %> 
+                                        <i class="fa fa-times kube-false" aria-hidden="true"></i><a href="<%= data.nodes[i].link %>"><%= data.nodes[i].name %></a>
+                                    <% } %>
+                                </td>
+                                <td>
+                                    <% for (const key in data.nodes[i].labels) {
+                                        if (data.nodes[i].labels.hasOwnProperty(key)) { %>
+                                            <div><span class="badge badge-secondary kube-label"><%= key %> : <%= data.nodes[i].labels[key] %></span></div>
+                                        <% }
+                                    } %>
+                                </td>
+                                <td><%= data.nodes[i].ready %></td>
+                                <td><%= data.nodes[i].age %></td>
+                            </tr>
+                          <% } %>
+                        </tbody>
+                      </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+                <div class="tile">
+                    <div class="tile-body">
+                        <div class="title">Persistent Volumes</div>
+                        <table class="table table-hover table-bordered" id="tablePersistent">
+                            <thead>
+                              <tr>
+                                <th>Name</th>
+                                <th>Capacity</th>
+                                <th>Access Modes</th>
+                                <th>Reclaim Policy</th>
+                                <th>Status</th>
+                                <th>Claim</th>
+                                <th>Storage Class</th>
+                                <th>Age</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <% for(let i = 0; i < data.persistentVolume.length; i++) { %>
+                                <tr>
+                                    <td>
+                                        <% if(data.persistentVolume[i].status) {%>
+                                            <i class="fa fa-check kube-success" aria-hidden="true"></i><a href="<%= data.persistentVolume[i].link %>"><%= data.persistentVolume[i].name %></a>
+                                        <%} else { %> 
+                                            <i class="fa fa-times kube-false" aria-hidden="true"></i><a href="<%= data.persistentVolume[i].link %>"><%= data.persistentVolume[i].name %></a>
+                                        <% } %>
+                                    </td>
+                                    <td><%= data.persistentVolume[i].capacity %></td>
+                                    <td>
+                                        <% for (let i = 0; i < data.persistentVolume[i].accessModes.length; i++) { %>
+                                            <div><%= data.persistentVolume[i].accessModes[i]%></div>
+                                       <% }%>
+                                    </td>
+                                    <td><%= data.persistentVolume[i].reclaimPolicy %></td>
+                                    <td><%= data.persistentVolume[i].status %></td>
+                                    <td><a href="<%= data.persistentVolume[i].claim %>"><%= data.persistentVolume[i].claim %></a></td>
+                                    <td><%= data.persistentVolume[i].storageClass %></td>
+                                    <td><%= data.persistentVolume[i].age %></td>
+                                </tr>
+                              <% } %>
+                            </tbody>
+                          </table>
+                    </div>
+                </div>
+            </div>
 </div>
