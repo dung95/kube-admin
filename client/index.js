@@ -1,6 +1,9 @@
 const express = require('express');
+const axios = require('axios');
 const app = express();
 const router = require('./router/index');
+const config = require('./config.json');
+const enumValue = require('./common/enum');
 app.set('view engine', 'ejs')
 
 app.set('views', __dirname + '/views');
@@ -18,16 +21,13 @@ app.use(function (req, res, next) {
             namespaces.push({
                 name : item.metadata.name,
                 link : `${enumValue.pathapp.namespaces}/${helper.path(item.metadata.selfLink)}`,
-                labels : item.metadata.labels,
-                status : item.status.phase,
-                age : helper.timeago(item.metadata.creationTimestamp)
             })
         }
         req.namespace = namespaces;
         next();
     })
     .catch((error) =>{
-        callback(error, null);
+        next();
     })
   
 });
